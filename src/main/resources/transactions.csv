@@ -1,0 +1,6 @@
+id,date,client,amount,category
+1,2024-06-01,Fabien,80.50,
+2,2024-06-02,Alice,120.00,Loisirs
+3,2024-06-03,Jean,-15.00,
+4,2024-06-04,Claire,45.99,Courses
+5,2024-06-05,Fabien,300.00,
