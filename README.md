@@ -45,5 +45,11 @@ mvn test
 Lancement de l'application :
 
 ```bash
-mvn spring-boot:run
+mvn spring-boot:run "-Dspring-boot.run.profiles=local"
+```
+
+Pour lancement avec Docker :
+
+```bash
+docker-compose up --build
 ```
