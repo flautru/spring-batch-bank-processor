@@ -40,3 +40,10 @@ Lancement des tests :
 
 ```bash
 mvn test
+```
+
+Lancement de l'application :
+
+```bash
+mvn spring-boot:run
+```
