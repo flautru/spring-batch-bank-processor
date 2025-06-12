@@ -9,6 +9,7 @@ import org.springframework.batch.item.Chunk;
 import org.springframework.batch.item.database.JpaItemWriter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
@@ -17,6 +18,7 @@ import java.util.Collections;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
+@ActiveProfiles("local")
 @Transactional
 public class TransactionWriterIntegrationTest {
 

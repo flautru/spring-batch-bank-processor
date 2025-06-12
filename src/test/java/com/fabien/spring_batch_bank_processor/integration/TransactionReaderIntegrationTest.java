@@ -6,15 +6,16 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.batch.item.ExecutionContext;
 import org.springframework.batch.item.file.FlatFileItemReader;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Import;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
+import org.springframework.test.context.ActiveProfiles;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
+@ActiveProfiles("local")
 @Import(TransactionReader.class)
 public class TransactionReaderIntegrationTest {
 
@@ -27,7 +28,7 @@ public class TransactionReaderIntegrationTest {
     }
 
     @Test
-    void testReadTransactions() throws Exception{
+    void testReadTransactions() throws Exception {
         FlatFileItemReader<Transaction> reader = transactionReader.transactionFlatFileItemReader();
         reader.open(new ExecutionContext());
 
