@@ -1,11 +1,13 @@
 package com.fabien.spring_batch_bank_processor.integration;
 
+import com.fabien.spring_batch_bank_processor.config.BatchTestConfig;
 import org.junit.jupiter.api.Test;
-import org.springframework.batch.core.BatchStatus;
-import org.springframework.batch.core.JobExecution;
-import org.springframework.batch.test.JobLauncherTestUtils;
+import org.springframework.batch.core.*;
+import org.springframework.batch.core.launch.JobLauncher;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.annotation.Import;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
 import org.testcontainers.containers.PostgreSQLContainer;
@@ -16,6 +18,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
 @Testcontainers
+@Import(BatchTestConfig.class)
 class BankBatchIntegrationTest {
 
     @Container
@@ -23,8 +26,13 @@ class BankBatchIntegrationTest {
             .withDatabaseName("bankdb")
             .withUsername("postgres")
             .withPassword("admin");
+
     @Autowired
-    private JobLauncherTestUtils jobLauncherTestUtils;
+    private JobLauncher jobLauncher;
+
+    @Autowired
+    @Qualifier("transactionJob") // Nom du bean de ton job
+    private Job job;
 
     @DynamicPropertySource
     static void datasourceProperties(DynamicPropertyRegistry registry) {
@@ -35,7 +43,11 @@ class BankBatchIntegrationTest {
 
     @Test
     void testBatchJobRunsSuccessfully() throws Exception {
-        JobExecution jobExecution = jobLauncherTestUtils.launchJob();
+        JobParameters jobParameters = new JobParametersBuilder()
+                .addLong("run.id", System.currentTimeMillis())
+                .toJobParameters();
+
+        JobExecution jobExecution = jobLauncher.run(job, jobParameters);
         assertEquals(BatchStatus.COMPLETED, jobExecution.getStatus());
     }
 }
