@@ -1,5 +1,7 @@
 # 💳 Spring Batch Bank Processor
 
+[![CI - Build Spring Batch App](https://github.com/flautru/spring-batch-bank-processor/actions/workflows/ci.yml/badge.svg)](https://github.com/flautru/spring-batch-bank-processor/actions/workflows/ci.yml)
+
 Projet Java Spring Batch permettant de lire un fichier CSV contenant des transactions bancaires, de les traiter et de
 les enregistrer dans une base de données via JPA.
 
